@@ -79,6 +79,8 @@ private slots:
 
     void on_pushButton_x_clicked();
 
+    void on_pushButton_drawGraph_clicked();
+
 private:
     Ui::View *ui;
     Model model;

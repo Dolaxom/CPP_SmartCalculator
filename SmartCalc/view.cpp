@@ -195,10 +195,35 @@ void View::on_pushButton_C_clicked()
     ui->inputLine->clear();
 }
 
-
-
 void View::on_pushButton_x_clicked()
 {
     Controller::Concat(ui->inputLine, "x");
 }
 
+
+void View::on_pushButton_drawGraph_clicked()
+{
+    QString s;
+    QVector<double> x, y;
+
+    double dotFrequency = 1.0;
+    if (ui->xBeginLine->text().toDouble() <= 1000 && ui->xEndLine->text().toDouble() <= 1000) {
+        dotFrequency = 0.1;
+    }
+    if (ui->xBeginLine->text().toDouble() <= 10 && ui->xEndLine->text().toDouble() <= 10) {
+        dotFrequency = 0.01;
+    }
+
+    for (double i = ui->xBeginLine->text().toDouble(); i <= ui->xEndLine->text().toDouble(); i += dotFrequency) {
+        x.push_back(i);
+
+        s = Controller::ReplaceX(ui->inputLine, i);
+
+        y.push_back(model.calculate(s.toStdString()));
+    }
+    ui->widget->xAxis->setRange(ui->xBeginLine->text().toInt(), ui->xEndLine->text().toInt());
+    ui->widget->yAxis->setRange(ui->yBeginLine->text().toInt(), ui->yEndLine->text().toInt());
+    ui->widget->addGraph();
+    ui->widget->graph(0)->setData(x, y);
+    ui->widget->replot();
+}

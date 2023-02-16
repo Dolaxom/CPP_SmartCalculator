@@ -314,28 +314,28 @@
     </widget>
    </item>
    <item row="8" column="1">
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="xBeginLine">
      <property name="text">
       <string>X: begin</string>
      </property>
     </widget>
    </item>
    <item row="8" column="2">
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="yBeginLine">
      <property name="text">
       <string>Y: begin</string>
      </property>
     </widget>
    </item>
    <item row="8" column="3">
-    <widget class="QLineEdit" name="lineEdit_3">
+    <widget class="QLineEdit" name="xEndLine">
      <property name="text">
       <string>X: end</string>
      </property>
     </widget>
    </item>
    <item row="8" column="4">
-    <widget class="QLineEdit" name="lineEdit_4">
+    <widget class="QLineEdit" name="yEndLine">
      <property name="text">
       <string>Y: end</string>
      </property>

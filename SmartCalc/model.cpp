@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <stack>
 #include <cmath>
 #include "model.h"
@@ -28,20 +29,12 @@ double Model::calculate(std::string input_str) {
     }
     std::vector<Token> rpn = infix_to_rpn(tokens);
 
-    std::cout << "\n\n" << "Обычная запись:\n" << input_str << "\n\nПольская нотация\n";
-
-    for (auto & i : rpn) {
-        std::cout<< i.token << " ";
-    }
-
     double res = 0.0f;
     try {
         res = rpn_to_result(rpn);
     } catch (...) {
         res = INFINITY;
     }
-
-    std::cout << std::fixed <<"\n\nОтвет: " << res;
 
     return res;
 }
