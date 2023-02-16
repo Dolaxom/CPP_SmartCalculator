@@ -12,6 +12,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(PROJECT_ARCH_TARGET "amd64")    # x64
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(PROJECT_ARCH_TARGET "i386")     # x86
+else()
+    message(FATAL_ERROR "Unkwnown architecture, CMake will exit.")
+endif()
+
 set(PROJECT_SOURCES
         main.cpp
         view.cpp
@@ -23,22 +31,24 @@ set(PROJECT_SOURCES
         controller.cpp
 )
 
+set(PROJECT_BUILD_OUTPUT ${CMAKE_SOURCE_DIR}/build/output/${PROJECT_ARCH_TARGET}/${CMAKE_BUILD_TYPE})
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BUILD_OUTPUT}/bin)
+SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BUILD_OUTPUT}/lib)
+SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BUILD_OUTPUT}/lib)
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BUILD_OUTPUT}/bin)
+
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(SmartCalc
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET SmartCalc APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+
 else()
     if(ANDROID)
         add_library(SmartCalc SHARED
             ${PROJECT_SOURCES}
         )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(SmartCalc
             ${PROJECT_SOURCES}
@@ -63,3 +73,10 @@ install(TARGETS SmartCalc
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(SmartCalc)
 endif()
+
+target_link_libraries(${PROJECT_NAME} PRIVATE qcustomplot)
+
+# Compile needed definitions
+target_compile_definitions(${PROJECT_NAME} PRIVATE QCUSTOMPLOT_USE_LIBRARY)
+
+add_subdirectory(lib)
