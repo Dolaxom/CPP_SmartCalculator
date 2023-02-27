@@ -29,6 +29,9 @@ set(PROJECT_SOURCES
         model.cpp
         controller.h
         controller.cpp
+        credit.h
+        credit.cpp
+        credit.ui
 )
 
 set(PROJECT_BUILD_OUTPUT ${CMAKE_SOURCE_DIR}/build/output/${PROJECT_ARCH_TARGET}/${CMAKE_BUILD_TYPE})

@@ -227,3 +227,9 @@ void View::on_pushButton_drawGraph_clicked()
     ui->widget->graph(0)->setData(x, y);
     ui->widget->replot();
 }
+
+void View::on_pushButton_33_clicked()
+{
+    credit_form.show();
+}
+

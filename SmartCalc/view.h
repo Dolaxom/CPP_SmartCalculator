@@ -3,10 +3,12 @@
 
 #include <QWidget>
 #include "controller.h"
+#include "credit.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class View; }
 QT_END_NAMESPACE
+
 
 class View : public QWidget
 {
@@ -81,8 +83,11 @@ private slots:
 
     void on_pushButton_drawGraph_clicked();
 
+    void on_pushButton_33_clicked();
+
 private:
     Ui::View *ui;
     Model model;
+    Credit credit_form;
 };
 #endif // VIEW_H
