@@ -103,7 +103,7 @@ std::vector<Model::Token> Model::StrToTokens(std::string &input_str) {
         i++;
       }
     } else {
-      throw std::runtime_error("Пример говно");
+      throw std::runtime_error("Task Error");
     }
 
     current_token.token = current_token_str;
@@ -188,12 +188,12 @@ double Model::RpnToResult(const std::vector<Token> &input_rpn) {
     } else if (current_token.priority > 1 && current_token.priority < 5) {
       if (num_stack.empty()) {
         //  говно, переделывай
-        throw std::runtime_error("Пример говно");
+        throw std::runtime_error("Task Error");
       }
       b = std::stod(num_stack.top().token);
       num_stack.pop();
       if (num_stack.empty()) {
-        throw std::runtime_error("Пример говно");
+        throw std::runtime_error("Task Error");
       }
       a = std::stod(num_stack.top().token);
       num_stack.pop();
@@ -214,7 +214,7 @@ double Model::RpnToResult(const std::vector<Token> &input_rpn) {
       num_stack.push(tmp);
     } else if (current_token.priority == -1) {
       if (num_stack.empty()) {
-        throw std::runtime_error("Пример говно");
+        throw std::runtime_error("Task Error");
       }
       a = std::stod(num_stack.top().token);
       num_stack.pop();
@@ -245,7 +245,7 @@ double Model::RpnToResult(const std::vector<Token> &input_rpn) {
       num_stack.push(tmp);
     } else if (current_token.priority == 5) {
       if (num_stack.empty()) {
-        throw std::runtime_error("Пример говно");
+        throw std::runtime_error("Task Error");
       }
       a = std::stod(num_stack.top().token);
       num_stack.pop();
